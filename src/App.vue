@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="body">
-      <h2 class="question">{{questions[0].q}}</h2>
+      <h2 class="question">{{questions[ix].q}}</h2>
       <div class="answers">
-        <div class="ans" v-for="ans in questions[0].answers" :key="ans">
+        <div @click="selected" class="ans" v-for="ans in questions[ix].answers" :key="ans">
           <p>{{ans}}</p>
         </div>
       </div>
@@ -17,9 +17,10 @@ export default {
   name: 'App',
   data () {
     return {
+      ix: 0,
       questions: [{
         q: 'How much wood can a woodchuck chuck?',
-        answers: ['a', 'b', 'c', 'd'],
+        answers: ['200 kg', '150 tons', '80 tons', 'Depends on it\'s size'],
         correct: 'c'
       }, {
         q: 'New thang',
@@ -38,6 +39,9 @@ export default {
   display: flex;
   height: 100%;
   width: 100%;
+  background: #8D6235;
+  top: 0px;
+  left: 0px;
 }
 
 * {
@@ -51,6 +55,8 @@ export default {
 
 #app .question {
   text-align: center;
+  font-size: 32px;
+  color: white;
 }
 
 .answers {
@@ -58,29 +64,38 @@ export default {
   justify-content: space-evenly;
   width: 100%;
   flex-wrap: wrap;
+  margin-top: 60px;
 }
 
 .ans {
-  min-width: 15%;
+  min-width: 20%;
   height: 40px;
-  border-radius: 2px;
-  border: 1px solid #aaa;
+  border-radius: 200px;
+  border: 2px solid #fff;
   display: flex;
   margin: 8px;
   cursor: pointer;
+  color: white;
 }
 
 .ans:hover {
-  background: #f5f5f5;
+  background: rgba(255,255,255,0.4);
 }
 
 .ans:active {
-  background: #eee;
+  background: rgba(255,255,255,1);
+  color: #8D6235;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .ans {
-    width: 100%;
+    width: calc(50% - 10%);
+  }
+}
+
+@media (max-width: 600px) {
+  .ans {
+    width: calc(100% - 20%);
   }
 }
 
