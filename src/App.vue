@@ -78,6 +78,14 @@ export default {
   font-family: 'Open Sans', Roboto, sans-serif;
 }
 
+h5 {
+  text-align: center;
+  text-transform: uppercase;
+  color: hsla(0,0%,100%,.6);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
 .result {
   position: fixed;
   width: 100%;
