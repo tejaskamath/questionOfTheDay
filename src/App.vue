@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <div v-if="questions[ix].correct - 1 == selected" class="result">
-      <div>
-        <span style="font-size: 90px; margin: auto;">🎉</span>
-        <h3 style="color: #B98744; font-size: 32px;">{{rStatement}}</h3>
+  <div class="qcontainer">
+    <div id="app">
+      <div v-if="questions[ix].correct - 1 == selected" class="result">
+        <div>
+          <span style="font-size: 90px; margin: auto;">🎉</span>
+          <h3 style="color: #B98744; font-size: 32px;">{{rStatement}}</h3>
+        </div>
       </div>
-    </div>
-    <div class="body">
-      <h5>Question of the day</h5>
-      <h2 class="question">{{questions[ix].q}}</h2>
-      <div class="answers">
-        <div v-for="(ans, i) in questions[ix].answers" 
-             @click="selection(i)" 
-             class="ans"
-             :class="{
-                selected: selected == i, 
-                right: selected == i && questions[ix].correct - 1 == i,
-                wrong: selected == i && questions[ix].correct - 1 != i
-                }"
-             :key="ans">
-          <div class="num">
-            <span>{{alphabets[i]}}</span>
+      <div class="body">
+        <h5>Daily Archumen Quiz</h5>
+        <h2 class="question">{{questions[ix].q}}</h2>
+        <div class="answers">
+          <div v-for="(ans, i) in questions[ix].answers" 
+              @click="selection(i)" 
+              class="ans"
+              :class="{
+                  selected: selected == i, 
+                  right: selected == i && questions[ix].correct - 1 == i,
+                  wrong: selected == i && questions[ix].correct - 1 != i
+                  }"
+              :key="ans">
+            <div class="num">
+              <span>{{alphabets[i]}}</span>
+            </div>
+            <p>{{ans}}</p>
           </div>
-          <p>{{ans}}</p>
         </div>
       </div>
     </div>
@@ -30,7 +32,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   data () {
@@ -40,13 +41,9 @@ export default {
       rStatement: 'You are right!',
       alphabets: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
       questions: [{
-        q: 'How much wood can a woodchuck chuck?',
-        answers: ['200 kg', 'A ton', '200 tons', 'Depends on it\'s size'],
-        correct: 4
-      }, {
-        q: 'New thang',
-        answers: ['a', 'b', 'c', 'd'],
-        correct: 'a'
+        q: 'Which of the following architects has not won a Pritzker prize?',
+        answers: ['Thom Mayne', 'Marina Tabassum', 'Kevin Roche', 'Gordon Bunshaft'],
+        correct: 2
       }]
     }
   },
@@ -64,8 +61,20 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+.qcontainer {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+@media (max-width: 600px) {
+  .qcontainer {
+    height: 600px;
+  }
+}
+
 #app {
-  position: fixed;
+  position: absolute;
   display: flex;
   height: 100%;
   width: 100%;
@@ -87,7 +96,7 @@ h5 {
 }
 
 .result {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
@@ -131,8 +140,10 @@ h5 {
 
 #app .question {
   text-align: center;
+  box-sizing: border-box;
   font-size: 32px;
   color: white;
+  padding: 0px 20px;
 }
 
 #app h5 {
@@ -165,7 +176,7 @@ h5 {
 }
 
 .ans {
-  min-width: 20%;
+  width: calc(50% - 10%);
   height: 40px;
   border-radius: 2px;
   border: 1px solid #fff;
